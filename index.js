@@ -12,10 +12,16 @@ async function modifyNumber(newNumber, email, password, id){
   
   const textInputHTML = 'input[wire\\:model\\.live="phoneNumber"][type="text"]';
   await page.waitForSelector(textInputHTML);
-  const textInput = await page.$eval(textInputHTML, el => el.value);
-  await page.click(textInputHTML);
-  for (let i=0; i<textInput.length; ++i)
-    await page.keyboard.press('Backspace');
+
+  // const textInput = await page.$eval(textInputHTML, el => el.value);
+  // await page.click(textInputHTML);
+  // for (let i=0; i<textInput.length; ++i)
+  //   await page.keyboard.press('Backspace');
+
+  const input = await page.$(textInputHTML);
+  await input.click({ clickCount: 3 })
+  await page.keyboard.press('Backspace')
+    
   await page.type(textInputHTML, newNumber);
   
   const saveBtn = 'button[wire\\:click="save"]';
@@ -23,11 +29,13 @@ async function modifyNumber(newNumber, email, password, id){
   await page.click(saveBtn);
   await page.click(saveBtn);
 
-  await page.evaluate(async () => {
-    await new Promise(resolve => setTimeout(resolve, 10000));
-  });
+  // await page.evaluate(async () => {
+  //   await new Promise(resolve => setTimeout(resolve, 10000));
+  // });
 
   await browser.close();
 }
 
-modifyNumber('0768390157', 'cogewed863@laymro.com', 'whatsapp2024!', '5758');
+module.exports = modifyNumber;
+
+// modifyNumber('0768390157', 'cogewed863@laymro.com', 'whatsapp2024!', '5758');
