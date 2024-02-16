@@ -6,9 +6,17 @@ async function modifyNumber(newNumber, email, password, id){
   await page.setViewport({height: 1080, width: 1000});
   await page.goto(`https://waapi.app/account/instances/${id}`);
 
+  await page.evaluate(async () => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+  });
+
   await page.type('#email',email);
   await page.type('#password',password);
   await page.click('button[type="submit"]');
+
+  // await page.evaluate(async () => {
+  //   await new Promise(resolve => setTimeout(resolve, 1000));
+  // });
   
   const textInputHTML = 'input[wire\\:model\\.live="phoneNumber"][type="text"]';
   await page.waitForSelector(textInputHTML);
@@ -29,9 +37,9 @@ async function modifyNumber(newNumber, email, password, id){
   await page.click(saveBtn);
   await page.click(saveBtn);
 
-  // await page.evaluate(async () => {
-  //   await new Promise(resolve => setTimeout(resolve, 10000));
-  // });
+  await page.evaluate(async () => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  });
 
   await browser.close();
 }
