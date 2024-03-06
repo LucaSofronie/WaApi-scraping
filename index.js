@@ -1,6 +1,7 @@
 async function modifyNumber(newNumber, email, password, id) {
   const puppeteer = require("puppeteer");
-  const browser = await puppeteer.launch({ headless: false });
+  // enable { headless: false } to see how it scrapes the WaApi
+  const browser = await puppeteer.launch(/* { headless: false } */);
   const page = await browser.newPage();
   await page.setViewport({ height: 1080, width: 1000 });
   await page.goto(`https://waapi.app/account/instances/${id}`);
